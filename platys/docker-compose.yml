@@ -242,6 +242,41 @@ services:
         #
         while [ 1 -eq 1 ];do sleep 60;done
     restart: unless-stopped
+  #  ================================== Filestash ========================================== #
+  filestash:
+    image: machines/filestash:latest
+    platform: linux/amd64
+    container_name: filestash
+    hostname: filestash
+    labels:
+      com.platys.name: filestash
+      com.platys.description: Dropbox-like file manager
+      com.platys.webui.title: Filestash UI
+      com.platys.webui.url: http://dataplatform:28192
+    ports:
+      - 28192:8334
+    volumes:
+      - ./data-transfer:/data-transfer
+      - ./conf/filestash/config.json:/app/data/state/config/config.json
+    restart: unless-stopped
+  #  ================================== Awscli ========================================== #
+  awscli:
+    image: trivadis/awscli-s3cmd:latest
+    container_name: awscli
+    hostname: awscli
+    labels:
+      com.platys.name: awscli
+      com.platys.description: AWS CLI
+    environment:
+      AWS_ACCESS_KEY_ID: ${PLATYS_AWS_ACCESS_KEY:-admin}
+      AWS_SECRET_ACCESS_KEY: ${PLATYS_AWS_SECRET_ACCESS_KEY:-abc123abc123!}
+      AWS_ENDPOINT: lakefs:8000
+      AWS_DEFAULT_REGION: us-east-1
+    volumes:
+      - ./data-transfer:/data-transfer
+      - ./conf/awscli/s3cfg.template:/root/.s3cfg.template
+    command: tail -f /dev/null
+    restart: unless-stopped
   #  ================================== LakeFS ========================================== #
   lakefs:
     image: treeverse/lakefs:1

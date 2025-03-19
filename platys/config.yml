@@ -2389,13 +2389,13 @@
       #
       #=====  AWS and Azure CLI ========
       #
-      AWSCLI_enable: false
+      AWSCLI_enable: true
       AZURECLI_enable: false
       AZURE_STORAGE_EXPLORER_enable: false
       #
       #=====  FileStash Storage UI ========
       #
-      FILESTASH_enable: false
+      FILESTASH_enable: true
       FILESTASH_set_default_config: true
       #
       #=====  Minio Web ========
