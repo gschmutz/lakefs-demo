@@ -64,7 +64,7 @@ awslfs s3 cp ./data-transfer/lakes.parquet s3://demo/main/lakes/lakes.parquet --
 Upload multiple files
  
 ```
-awslfs s3 cp -r ./data-transfer/airports-data/ s3://demo/main/airports/  --recursive
+awslfs s3 cp ./data-transfer/airports-data/ s3://demo/main/airports/  --recursive
 ```
  
 ```bash
@@ -147,7 +147,7 @@ SET s3_use_ssl=false;
 
 ```sql
 SELECT   country, COUNT(*)
-FROM     READ_PARQUET('s3://demo/experiment/lakes.parquet')
+FROM     READ_PARQUET('s3://demo/experiment/lakes/lakes.parquet')
 GROUP BY country
 ORDER BY COUNT(*) 
 DESC LIMIT 5;
@@ -161,7 +161,7 @@ Load data into DuckDB for transformation:
 
 ```sql
 CREATE OR REPLACE TABLE lakes_raw AS 
-    SELECT * FROM READ_PARQUET('s3://demo/experiment/lakes.parquet');
+    SELECT * FROM READ_PARQUET('s3://demo/experiment/lakes/lakes.parquet');
 ```
 
 ```sql
@@ -189,7 +189,7 @@ DESC LIMIT 5;
 Copy back to S3 (lakeFS)
 
 ```sql
-COPY lakes_raw TO 's3://demo/experiment/lakes.parquet';
+COPY lakes_raw TO 's3://demo/experiment/lakes/lakes.parquet';
 ```
 
 ## Verify that the Data's Changed on the Branch
@@ -198,7 +198,7 @@ COPY lakes_raw TO 's3://demo/experiment/lakes.parquet';
 DROP TABLE lakes_raw;
 
 SELECT   country, COUNT(*)
-FROM     READ_PARQUET('s3://demo/experiment/lakes.parquet')
+FROM     READ_PARQUET('s3://demo/experiment/lakes/lakes.parquet')
 GROUP BY country
 ORDER BY COUNT(*)
 DESC LIMIT 5;
@@ -209,7 +209,7 @@ DESC LIMIT 5;
 
 ```sql
 SELECT   country, COUNT(*)
-FROM     READ_PARQUET('s3://demo/main/lakes.parquet')
+FROM     READ_PARQUET('s3://demo/main/lakes/lakes.parquet')
 GROUP BY country
 ORDER BY COUNT(*)
 DESC LIMIT 5;
@@ -258,7 +258,7 @@ Rerun the same statement from `main` branch to see that merge has worked
 
 ```bash
 SELECT   country, COUNT(*)
-FROM     READ_PARQUET('s3://demo/main/lakes.parquet')
+FROM     READ_PARQUET('s3://demo/main/lakes/lakes.parquet')
 GROUP BY country
 ORDER BY COUNT(*)
 DESC LIMIT 5;
@@ -289,7 +289,7 @@ Rerun the same statement from `main` branch to see that revert has worked
 ```sql
 
 SELECT   country, COUNT(*)
-FROM     READ_PARQUET('s3://demo/main/lakes.parquet')
+FROM     READ_PARQUET('s3://demo/main/lakes/lakes.parquet')
 GROUP BY country
 ORDER BY COUNT(*)
 DESC LIMIT 5;
@@ -374,7 +374,7 @@ COPY (
     WITH src AS (
         SELECT lake_name, country, depth_m,
             RANK() OVER ( ORDER BY depth_m DESC) AS lake_rank
-        FROM READ_PARQUET('s3://demo/etl_20250321/lakes.parquet'))
+        FROM READ_PARQUET('s3://demo/etl_20250321/lakes/lakes.parquet'))
     SELECT * FROM SRC WHERE lake_rank <= 10
 ) TO 'lakefs://demo/etl_20250321/top10_lakes.parquet'  
 ```
