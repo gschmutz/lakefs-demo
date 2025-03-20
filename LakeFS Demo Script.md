@@ -30,7 +30,7 @@ Default output format [None]:
 When you invoke `aws s3`, you need to specify the `endpoint-url` parameter
 
 ```bash
-aws s3 --profile lakefs --endpoint-url http://dataplatform:28220 ls s3://demo/main/tiny/
+aws s3 --profile lakefs --endpoint-url http://dataplatform:28220 ls s3://demo/main/
 ```
 
 To make the command shorter and more convenient, you can create an alias:
@@ -39,18 +39,10 @@ To make the command shorter and more convenient, you can create an alias:
 alias awslfs='aws --endpoint-url http://dataplatform:28220 --profile lakefs'
 ```
 
-```bash
-awslfs s3 ls s3://demo/main/tiny/ --recursive
-``` 
-
-```bash
-awslfs s3 ls s3://demo/main/ --recursive --human-readable
-```
-
 Upload data
  
 ```
-awslfs s3 cp ./data-transfer/airports-data/airports.csv s3://demo/main/raw/airports/
+awslfs s3 cp ./data/lakes.parquet s3://demo/main/lakes/lakes.parquet --content-type application/vnd.apache.parquet
 ```
 
 Upload multiple files
@@ -59,12 +51,9 @@ Upload multiple files
 awslfs s3 cp ./data-transfer/airports-data/ s3://demo/upload-201124/raw/airports/
 ```
  
-Remove a folder
- 
-```
-awslfs s3 rm s3://demo/main/tiny/orders/ --recursive
-```
-
+```bash
+awslfs s3 ls s3://demo/main/ --recursive
+``` 
 
 
 ## Create a Branch
