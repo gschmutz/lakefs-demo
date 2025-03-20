@@ -1,12 +1,28 @@
-# LakeFS Demo Script
+# lakeFS Demo Script
 
 ## Initialize Platform
+
+Checkout the project and then run the `provision.sh` script once:
+
+```bash
+./provision.sh
+```
+
+```bash
+cd $DATAPLATFORM_HOME
+```
 
 ```bash
 docker compose up -d
 ```
 
-<http://dataplatform:80/services-v2>
+Navigate to <http://dataplatform:80/services-v2> to see the services
+
+## lakeFS UI
+
+Navigate to <http://dataplatform:28220> to open the lakeFS UI.
+
+Login to lakeFs and you will see two repositories, `demo` (empty) and `lakefsdemo` (with the lakefs demo data loaded). We will work with the `demo` repository.
 
 
 ## Upload data using awscli
@@ -42,7 +58,7 @@ alias awslfs='aws --endpoint-url http://dataplatform:28220 --profile lakefs'
 Upload data
  
 ```
-awslfs s3 cp ./data/lakes.parquet s3://demo/main/lakes/lakes.parquet --content-type application/vnd.apache.parquet
+awslfs s3 cp ./data-transfer/lakes.parquet s3://demo/main/lakes/lakes.parquet --content-type application/vnd.apache.parquet
 ```
 
 Upload multiple files
