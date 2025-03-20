@@ -81,17 +81,17 @@ lakeFS uses branches in a similar way to Git. It’s a great way to isolate chan
 ```bash
 docker exec lakectl \
     lakectl branch create \
-	    lakefs://demo/denmark-lakes \
+	    lakefs://demo/experiment \
       --source lakefs://demo/main
 ```
 
 ```bash
 ubuntu@ip-172-26-7-188:~/lakefs-demo/platys$ docker exec lakectl \
     lakectl branch create \
-            lakefs://demo/denmark-lakes \
+            lakefs://demo/experiment \
       --source lakefs://demo/main
 Source ref: lakefs://demo/main
-created branch 'denmark-lakes' a7dfd5f7ebae51a99457b4e11fe272e9679118f4870ca41218c6407aa01980b8
+created branch 'experiment' a7dfd5f7ebae51a99457b4e11fe272e9679118f4870ca41218c6407aa01980b8
 ```
 
 ### CLI (local)
@@ -104,19 +104,19 @@ lakectl config
 
 * `admin`
 * `abc123abc123!`
-* `lakefs://3.67.93.185:28220`
+* `http://3.67.93.185:28220`
 
 Create branch
 
 ```
 lakectl branch create \
-  lakefs://demo/denmark-lakes \
+  lakefs://demo/experiment \
   --source lakefs://demo/main
 ```
 
 ### Using UI
 
-From the [branches page](http://3.67.93.185:28220/repositories/demo/branches), click on Create Branch. Call the new branch denmark-lakes and click on Create
+From the [branches page](http://3.67.93.185:28220/repositories/demo/branches), click on Create Branch. Call the new branch experiment and click on Create
 
 
 ## Connect to LakeFS from DuckDB using DBeaver
@@ -147,7 +147,7 @@ SET s3_use_ssl=false;
 
 ```sql
 SELECT   country, COUNT(*)
-FROM     READ_PARQUET('s3://demo/denmark-lakes/lakes.parquet')
+FROM     READ_PARQUET('s3://demo/experiment/lakes.parquet')
 GROUP BY country
 ORDER BY COUNT(*) 
 DESC LIMIT 5;
@@ -161,7 +161,7 @@ Load data into DuckDB for transformation:
 
 ```sql
 CREATE OR REPLACE TABLE lakes_raw AS 
-    SELECT * FROM READ_PARQUET('s3://demo/denmark-lakes/lakes.parquet');
+    SELECT * FROM READ_PARQUET('s3://demo/experiment/lakes.parquet');
 ```
 
 ```sql
@@ -189,7 +189,7 @@ DESC LIMIT 5;
 Copy back to S3 (lakeFS)
 
 ```sql
-COPY lakes_raw TO 's3://demo/denmark-lakes/lakes.parquet';
+COPY lakes_raw TO 's3://demo/experiment/lakes.parquet';
 ```
 
 ## Verify that the Data's Changed on the Branch
@@ -198,7 +198,7 @@ COPY lakes_raw TO 's3://demo/denmark-lakes/lakes.parquet';
 DROP TABLE lakes_raw;
 
 SELECT   country, COUNT(*)
-FROM     READ_PARQUET('s3://demo/denmark-lakes/lakes.parquet')
+FROM     READ_PARQUET('s3://demo/experiment/lakes.parquet')
 GROUP BY country
 ORDER BY COUNT(*)
 DESC LIMIT 5;
@@ -219,20 +219,20 @@ DESC LIMIT 5;
 
 ### Using UI
 
-Go to the [Uncommitted Changes](http://3.67.93.185:28220/repositories/demo/changes?ref=denmark-lakes) and make sure you have the denmark-lakes branch selected
+Go to the [Uncommitted Changes](http://3.67.93.185:28220/repositories/demo/changes?ref=experiment) and make sure you have the experiment branch selected
 
 ### Using CLI (local)
 
 ```bash
-lakectl commit lakefs://demo/denmark-lakes \
+lakectl commit lakefs://demo/experiment \
   -m "Create a dataset of just the lakes in Denmark"
 ```
 
 ```bash
-guido.schmutz@AMAXDKFVW0HYY ~> lakectl commit lakefs://demo/denmark-lakes \
+guido.schmutz@AMAXDKFVW0HYY ~> lakectl commit lakefs://demo/experiment \
                                      -m "Create a dataset of just the lakes in Denmark"
-Branch: lakefs://demo/denmark-lakes
-Commit for branch "denmark-lakes" completed.
+Branch: lakefs://demo/experiment
+Commit for branch "experiment" completed.
 
 ID: 762069bfb52e4072cfc0bf33d178f25e14cc76e956f942c81f35b9032ef03d0f
 Message: Create a dataset of just the lakes in Denmark
@@ -244,13 +244,13 @@ Parents: a7dfd5f7ebae51a99457b4e11fe272e9679118f4870ca41218c6407aa01980b8
 
 ### Using UI
 
-Click [here](http://3.67.93.185:28220/repositories/demo/compare?ref=main&compare=denmark-lakes), or manually go to the Compare tab and set the Compared to branch to denmark-lakes.
+Click [here](http://3.67.93.185:28220/repositories/demo/compare?ref=main&compare=experiment), or manually go to the Compare tab and set the Compared to branch to experiment.
 
 ### Using CLI (local)
 
 ```bash
 lakectl merge \
-  lakefs://demo/denmark-lakes \
+  lakefs://demo/experiment \
   lakefs://demo/main
 ```
 
