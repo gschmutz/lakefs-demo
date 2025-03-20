@@ -2346,7 +2346,7 @@
       MINIO_access_key: admin
       MINIO_secret_key: abc123abc123!
       # add additional buckets, comma separated, admin-bucket will be created by default
-      MINIO_buckets: 'lakefs-demo-bucket'
+      MINIO_buckets: ''
       MINIO_browser_enable: true
       MINIO_upload_data_transfer_to_bucket_enabled: false
       MINIO_upload_data_transfer_bucket_name: 'data-transfer-bucket'
@@ -2447,7 +2447,7 @@
       LAKEFS_logging_level: 'INFO'
       LAKEFS_logging_audit_log_level: 'INFO'
       # enable and configure quickstart (only applicable if LAKEFS_database_type = 'local')
-      LAKEFS_quickstart_enabled: true
+      LAKEFS_quickstart_enabled: false
       LAKEFS_quickstart_bucket_name: 'lakefs-demo-bucket'
       LAKEFS_quickstart_repo_name: 'demo'
       LAKEFS_quickstart_with_demo_data: true

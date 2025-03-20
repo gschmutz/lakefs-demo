@@ -18,7 +18,7 @@ else
     # Create initial user and credentials in LakeFS 
     ./lakefs-api.sh $LAKEFS_URL "" "" POST setup_lakefs $json_data_dir/lakefs-setup.json
 
-    # Create the demo data repository
+    # Create the lakefsdemo data repository
     result=$(./lakefs-api.sh $LAKEFS_URL $LAKEFS_CREDENTIALS_ACCESS_KEY_ID $LAKEFS_CREDENTIALS_SECRET_ACCESS_KEY POST repositories $json_data_dir/lakefsdemo-repository.json)
     echo $result
 

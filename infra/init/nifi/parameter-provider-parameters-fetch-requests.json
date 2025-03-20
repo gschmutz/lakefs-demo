@@ -1,5 +1,0 @@
-{
-    "id": "$PARAMETER_PROVIDER_ID",
-    "revision": $REVISION,
-    "disconnectedNodeAcknowledged":false
-}

@@ -235,7 +235,7 @@ services:
         mkdir -p /tmp/.aws
         eval "echo \"$$(cat /tmp/credentials.templ)\"" >> /tmp/.aws/credentials
         mc mb --ignore-existing minio-1/demo/main
-              for bucket in $$(tr ',' '\n' <<< "lakefs-demo-bucket")
+              for bucket in $$(tr ',' '\n' <<< "")
         do
           mc mb --ignore-existing minio-1/$$bucket
         done
@@ -329,8 +329,6 @@ services:
     command:
       - |
         lakefs run --local-settings &
-        wait-for -t 60 lakefs:8000 -- echo "---- Creating repository ----" &&  \
-            lakectl repo create lakefs://demo s3://lakefs-demo-bucket/demo --default-branch main --sample-data || true
         echo "-------- Let's go and have axolotl fun! --------"
         wait
     restart: unless-stopped
