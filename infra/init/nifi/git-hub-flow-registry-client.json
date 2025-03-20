@@ -1,0 +1,27 @@
+{
+    "revision": {
+         "version": 0
+     },
+    "component": {
+         "name": "eadp-1",
+         "description": "",
+         "type": "org.apache.nifi.github.GitHubFlowRegistryClient",
+         "bundle": {
+           "group": "org.apache.nifi",
+           "artifact": "nifi-github-nar",
+           "version": "2.0.0"
+         },
+         "properties": {
+           "GitHub API URL": "https://api.github.com/",
+           "Repository Owner": "trivadispf",
+           "Repository Name": "eadp-nifi-repository",
+           "Authentication Type": "PERSONAL_ACCESS_TOKEN",
+           "Personal Access Token": "$GIT_PERSONAL_ACCESS_TOKEN",
+           "App ID": null,
+           "App Private Key": null,
+           "Default Branch": "main",
+           "Repository Path": "nifi-flows"
+         }
+    }
+ }
+ 

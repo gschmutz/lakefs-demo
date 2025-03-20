@@ -401,6 +401,26 @@ services:
       - ./artefacts:/output
       - ./data-transfer:/data-transfer
     init: true
+  #  ================================== Platys Modern Data Platform Init Service ========================================== #
+  platys-mdp-init:
+    image: trivadis/platys-mdp-init:latest
+    container_name: platys-mdp-init
+    hostname: platys-mdp-init
+    environment:
+      MC_HOST_minio-1: http://${PLATYS_AWS_ACCESS_KEY:-admin}:${PLATYS_AWS_SECRET_ACCESS_KEY:-abc123abc123!}@minio-1:9000
+      MINIO_ACCESS_KEY_ID: ${PLATYS_AWS_ACCESS_KEY:-admin}
+      MINIO_SECRET_ACCESS_KEY: ${PLATYS_AWS_SECRET_ACCESS_KEY:-abc123abc123!}
+      MINIO_URL: http://lakefs:8000
+      LAKEFS_URL: http://lakefs:8000
+      LAKEFS_USER: quickstart
+      LAKEFS_CREDENTIALS_ACCESS_KEY_ID: ${PLATYS_AWS_ACCESS_KEY:-admin}
+      LAKEFS_CREDENTIALS_SECRET_ACCESS_KEY: ${PLATYS_AWS_SECRET_ACCESS_KEY:-abc123abc123!}
+    volumes:
+      - ./data-transfer:/data-transfer
+      - ./init/platys-mdp-init:/docker-entrypoint-init.d/
+    init: true
+    command: sleep 30
+    restart: no
 volumes:
   data-transfer-vol:
     name: data_transfer_vol

@@ -39,7 +39,7 @@
       #
       # ===== Platys Modern Data Platform Init ========
       #    
-      PLATYS_MDP_INIT_enable: false
+      PLATYS_MDP_INIT_enable: true
       PLATYS_MDP_INIT_env_variables: ''
       PLATYS_MDP_INIT_use_env_file: false
       PLATYS_MDP_INIT_env_filename: '.env'

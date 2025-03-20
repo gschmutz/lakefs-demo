@@ -8,6 +8,65 @@ docker compose up -d
 
 <http://dataplatform:80/services-v2>
 
+
+## Upload data using awscli
+
+## Using `awscli`
+
+First configure a profile
+
+```
+aws configure --profile lakefs
+```
+
+```
+> aws configure --profile lakefs
+AWS Access Key ID [None]: XXXXXXXXXXXX
+AWS Secret Access Key [None]: XXXXXXXXXXXXXXXX
+Default region name [None]:
+Default output format [None]:
+```
+
+When you invoke `aws s3`, you need to specify the `endpoint-url` parameter
+
+```bash
+aws s3 --profile lakefs --endpoint-url http://dataplatform:28220 ls s3://demo/main/tiny/
+```
+
+To make the command shorter and more convenient, you can create an alias:
+
+```bash
+alias awslfs='aws --endpoint-url http://dataplatform:28220 --profile lakefs'
+```
+
+```bash
+awslfs s3 ls s3://demo/main/tiny/ --recursive
+``` 
+
+```bash
+awslfs s3 ls s3://demo/main/ --recursive --human-readable
+```
+
+Upload data
+ 
+```
+awslfs s3 cp ./data-transfer/airports-data/airports.csv s3://demo/main/raw/airports/
+```
+
+Upload multiple files
+ 
+```
+awslfs s3 cp ./data-transfer/airports-data/ s3://demo/upload-201124/raw/airports/
+```
+ 
+Remove a folder
+ 
+```
+awslfs s3 rm s3://demo/main/tiny/orders/ --recursive
+```
+
+
+
 ## Create a Branch
 
 lakeFS uses branches in a similar way to Git. It’s a great way to isolate changes until, or if, we are ready to re-integrate them. lakeFS uses a zero-copy branching technique which means that it’s very efficient to create branches of your data.

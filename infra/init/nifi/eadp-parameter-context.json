@@ -1,0 +1,62 @@
+{
+    "revision": {
+      "version": 0
+    },
+    "permissions": {
+      "canRead": true,
+      "canWrite": true
+    },
+    "component": {
+      "name": "eadp",
+      "parameters": [
+      ],
+      "boundProcessGroups": [],
+      "inheritedParameterContexts": [
+        {
+          "id": "88df846c-0193-1000-b10c-29b498c6c7cc",
+          "permissions": {
+            "canRead": true,
+            "canWrite": true
+          },
+          "component": {
+            "id": "88df846c-0193-1000-b10c-29b498c6c7cc",
+            "name": "minio"
+          }
+        },
+        {
+          "id": "88df848e-0193-1000-395f-2e303f8b5b9a",
+          "permissions": {
+            "canRead": true,
+            "canWrite": true
+          },
+          "component": {
+            "id": "88df848e-0193-1000-395f-2e303f8b5b9a",
+            "name": "trino"
+          }
+        },
+        {
+          "id": "88df8480-0193-1000-ce16-c03d3d18a029",
+          "permissions": {
+            "canRead": true,
+            "canWrite": true
+          },
+          "component": {
+            "id": "88df8480-0193-1000-ce16-c03d3d18a029",
+            "name": "nifi"
+          }
+        },
+        {
+          "id": "88df8450-0193-1000-f202-eb1dae79662b",
+          "permissions": {
+            "canRead": true,
+            "canWrite": true
+          },
+          "component": {
+            "id": "88df8450-0193-1000-f202-eb1dae79662b",
+            "name": "airflow"
+          }
+        }
+      ]
+
+    }
+  }

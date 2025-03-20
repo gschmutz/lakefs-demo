@@ -1,0 +1,7 @@
+{
+    "name": "lakefsdemo",
+    "storage_namespace": "s3://lakefs-lakefsdemo-bucket/",
+    "default_branch": "main",
+    "sample_data": true,
+    "read_only": false
+}
