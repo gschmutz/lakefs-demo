@@ -71,6 +71,7 @@ awslfs s3 cp ./data-transfer/airports-data/ s3://demo/main/airports/  --recursiv
 awslfs s3 ls s3://demo/main/ --recursive
 ``` 
 
+Navigate to the UI and commit the changes: <http://3.67.93.185:28220/repositories/demo/changes?ref=main>
 
 ## Create a Branch
 
@@ -353,9 +354,9 @@ lakectl fs upload \
         --source ./check_commit_metadata.yml
 ```
                 
-Go to the Uncommitted Changes tab in the UI, and make sure that you see the new file in the path shown
+Go to the **Uncommitted Changes** tab in the UI, and make sure that you see the new file in the path shown
 
-Now we'll merge this new branch into main. From the Compare tab in the UI compare the main branch with add_action and click Merge.
+Now we'll **merge** this new branch into **main** branch. From the Compare tab in the UI compare the main branch with add_action and click Merge.
 
 ## Testing the Action
 
