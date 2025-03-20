@@ -48,7 +48,7 @@ awslfs s3 cp ./data/lakes.parquet s3://demo/main/lakes/lakes.parquet --content-t
 Upload multiple files
  
 ```
-awslfs s3 cp ./data-transfer/airports-data/ s3://demo/upload-201124/raw/airports/
+awslfs s3 cp -r ./data-transfer/airports-data/ s3://demo/main/airports/  --recursive
 ```
  
 ```bash
