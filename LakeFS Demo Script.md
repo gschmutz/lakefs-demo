@@ -377,10 +377,12 @@ COPY (
             RANK() OVER ( ORDER BY depth_m DESC) AS lake_rank
         FROM READ_PARQUET('s3://demo/etl_20250321/lakes/lakes.parquet'))
     SELECT * FROM SRC WHERE lake_rank <= 10
-) TO 'lakefs://demo/etl_20250321/top10_lakes.parquet'  
+) TO 's3://demo/etl_20250321/top10_lakes.parquet'  
 ```
 
 View Uncommitted Changes tab in the UI and notice that there is now a file called `top10_lakes.parquet waiting to be committed.
 
 Click on Commit Changes, leave the Commit message blank, and click Commit Changes to confirm.
+
+## Edit a file using the Filestash editor
 
